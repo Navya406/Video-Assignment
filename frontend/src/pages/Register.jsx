@@ -14,7 +14,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post("http://localhost:5000/api/auth/register", { username, password, role });
+      await axios.post("https://video-assignment.onrender.com/api/auth/register", { username, password, role });
       alert("Success! Please Login.");
       navigate("/login");
     } catch (error) { alert("Registration Failed"); } 
@@ -26,17 +26,14 @@ const Register = () => {
       <Navbar />
       
       <div className="flex-1 flex items-center justify-center p-4">
-        {/* Container */}
         <div className="w-[350px] bg-white shadow-[0px_5px_15px_rgba(0,0,0,0.35)] rounded-[10px] px-[30px] py-[20px] box-border">
           
-          {/* Title */}
           <h2 className="text-center text-[28px] font-extrabold my-[30px] text-black font-sans leading-tight">
             Create Account
           </h2>
           
           <form className="flex flex-col gap-[18px] w-full mb-[15px]" onSubmit={handleRegister}>
             
-            {/* Input 1 */}
             <input 
               type="text" 
               placeholder="Username" 
@@ -46,7 +43,6 @@ const Register = () => {
               className="w-full rounded-[20px] border border-[#c0c0c0] px-[15px] py-[12px] outline-none text-black placeholder-gray-500 focus:border-[teal] transition-colors"
             />
             
-            {/* Input 2 */}
             <input 
               type="password" 
               placeholder="Password" 
@@ -56,7 +52,6 @@ const Register = () => {
               className="w-full rounded-[20px] border border-[#c0c0c0] px-[15px] py-[12px] outline-none text-black placeholder-gray-500 focus:border-[teal] transition-colors"
             />
 
-            {/* Role Select - Styled exactly like the inputs */}
             <select 
                 value={role} 
                 onChange={(e) => setRole(e.target.value)}
@@ -67,7 +62,6 @@ const Register = () => {
                 <option value="Admin">Admin (Full Control)</option>
             </select>
             
-            {/* Button */}
             <button 
               disabled={loading}
               className="w-full py-[10px] px-[15px] rounded-[20px] bg-[teal] text-white font-bold text-[16px] shadow-[0px_3px_8px_rgba(0,0,0,0.24)] hover:shadow-none active:shadow-none transition-shadow cursor-pointer border-none outline-none mt-[10px] disabled:bg-gray-400"
@@ -76,7 +70,6 @@ const Register = () => {
             </button>
           </form>
           
-          {/* Sign Up Link */}
           <div className="text-center mt-[15px] mb-[5px]">
              <span className="text-[12px] text-[#747474] font-sans">
                Already have an account? 

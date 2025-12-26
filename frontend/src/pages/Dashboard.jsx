@@ -18,13 +18,13 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const videoRes = await axios.get('http://localhost:5000/api/videos', {
+        const videoRes = await axios.get('https://video-assignment.onrender.com/api/videos', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setVideos(videoRes.data);
 
         if (user?.role === 'Admin') {
-            const userRes = await axios.get('http://localhost:5000/api/users', {
+            const userRes = await axios.get('https://video-assignment.onrender.com/api/users', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUsersList(userRes.data);
@@ -38,7 +38,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!user) return;
-    const socket = io('http://localhost:5000');
+    // Updated Socket Connection
+    const socket = io('https://video-assignment.onrender.com');
     socket.emit('join_room', user._id);
     socket.on('video_progress', (data) => {
       setVideos((prev) => {
@@ -54,7 +55,7 @@ const Dashboard = () => {
   const handleDeleteVideo = async (videoId) => {
       if(!window.confirm("Are you sure you want to delete this video?")) return;
       try {
-          await axios.delete(`http://localhost:5000/api/videos/${videoId}`, {
+          await axios.delete(`https://video-assignment.onrender.com/api/videos/${videoId}`, {
               headers: { Authorization: `Bearer ${token}` }
           });
           setVideos(videos.filter(v => v._id !== videoId));
@@ -64,11 +65,11 @@ const Dashboard = () => {
   const handleDeleteUser = async (userId) => {
       if(!window.confirm("⚠️ Warning: Removing a user will also delete ALL their videos. Continue?")) return;
       try {
-          await axios.delete(`http://localhost:5000/api/users/${userId}`, {
+          await axios.delete(`https://video-assignment.onrender.com/api/users/${userId}`, {
               headers: { Authorization: `Bearer ${token}` }
           });
           setUsersList(usersList.filter(u => u._id !== userId));
-          const videoRes = await axios.get('http://localhost:5000/api/videos', { headers: { Authorization: `Bearer ${token}` } });
+          const videoRes = await axios.get('https://video-assignment.onrender.com/api/videos', { headers: { Authorization: `Bearer ${token}` } });
           setVideos(videoRes.data);
       } catch (error) { alert("Failed to delete user"); }
   }
@@ -262,7 +263,7 @@ const Dashboard = () => {
                 ✕ CLOSE
               </button>
             </div>
-            <VideoPlayer videoUrl={`http://localhost:5000/${selectedVideo.path.replace(/\\/g, "/")}`} />
+            <VideoPlayer videoUrl={`https://video-assignment.onrender.com/${selectedVideo.path.replace(/\\/g, "/")}`} />
           </div>
         </div>
       )}
